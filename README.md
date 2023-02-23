@@ -15,7 +15,7 @@ By loading this model you accept the CreativeML Open RAIL-M license at https://r
 If you're just looking for the accompanying resources of this repository, here are the links:
 
 * [Inference Colab Notebook](https://colab.research.google.com/github/sayakpaul/dreambooth-keras/blob/main/notebooks/inference_dreambooth.ipynb)
-* [Blog post on keras.io] (upcoming)
+* [Blog post on keras.io](https://keras.io/examples/generative/dreambooth/)
 * [Fine-tuned model weights](https://huggingface.co/chansung/dreambooth-dog)
 
 ### Table of contents
@@ -26,6 +26,8 @@ If you're just looking for the accompanying resources of this repository, here a
 * [Using in Diffusers 🧨](#using-in-diffusers-)
 * [Notes](#notes-on-preparing-data-for-dreambooth-training-of-faces)
 * [Acknowledgements](#acknowledgements)
+
+**Update 15/02/2023**: Thanks to [Soumik Rakshit](https://in.linkedin.com/in/soumikrakshit); we now have better utilities to support Weights and Biases (see https://github.com/sayakpaul/dreambooth-keras/pull/22).
 
 ## Steps to perform DreamBooth training using the codebase
 
