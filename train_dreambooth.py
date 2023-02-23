@@ -135,6 +135,12 @@ def parse_args():
         type=int,
         help="Number of validation image to generate per prompt.",
     )
+    parser.add_argument(
+        "--num_diffusion_steps",
+        default=50,
+        type=int,
+        help="Number of diffusion steps to generate images.",
+    )
 
     return parser.parse_args()
 
@@ -191,6 +197,7 @@ def run(args):
                 img_width=args.img_resolution,
                 prompts=validation_prompts,
                 num_imgs_to_gen=args.num_images_to_generate,
+                num_diffusion_steps=args.num_diffusion_steps,
             )
         )
 

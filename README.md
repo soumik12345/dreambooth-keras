@@ -31,7 +31,7 @@ If you're just looking for the accompanying resources of this repository, here a
 
 ## Steps to perform DreamBooth training using the codebase
 
-1. Install the pre-requisites: `pip install -r requirements.txt`.
+1. You can install the library using `pip install git+https://github.com/soumik12345/dreambooth-keras.git`
 
 2. You first need to choose a class to which a unique identifier is appended. This repository codebase was tested using `sks` as the unique idenitifer and `dog` as the class.
 
@@ -79,6 +79,25 @@ prior-preservation loss helps the model to slowly adapt to the new concept under
         "a photo of sks dog peeing" \
         "a photo of sks dog playing cricket" \
         "a photo of sks dog as an astronaut"
+    ```
+
+    Additionally, you can also have you datasets corresponding to instance and class images stored as [artifacts](https://docs.wandb.ai/guides/artifacts) for versioning your dataset and tracking the lineage of your workflow. You can specify the artifact addresses of your datasets in the corresponding flags, like the following example:
+
+    ```bash
+    python train_dreambooth.py \
+      --instance_images_url "geekyrakshit/dreambooth-keras/monkey-instance-images:v0" \
+      --class_images_url "geekyrakshit/dreambooth-keras/monkey-class-images:v0" \
+      --class_category "monkey" \
+      --mp \
+      --log_wandb \
+      --lr 5e-06 \
+      --max_train_steps 2000 \
+      --validation_prompts \
+          "a photo of sks monkey with a cat" \
+          "a photo of sks monkey riding a bicycle" \
+          "a photo of sks monkey as an astronaut" \
+          "a photo of sks monkey in front of the taj mahal" \
+          "a photo of sks monkey wearing sunglasses and drinking beer"
     ```
 
     [Here's](https://wandb.ai/geekyrakshit/dreambooth-keras/runs/huou7nzr) an example `wandb` run where you can find the generated images as well as the [model checkpoints](https://wandb.ai/geekyrakshit/dreambooth-keras/artifacts/model/run_huou7nzr_model).

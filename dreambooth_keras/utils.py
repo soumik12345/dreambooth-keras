@@ -26,6 +26,7 @@ class QualitativeValidationCallback(tf.keras.callbacks.Callback):
         img_width: int,
         prompts: List[str],
         num_imgs_to_gen: int = 5,
+        num_diffusion_steps: int = 50,
         *args,
         **kwargs,
     ):
@@ -34,6 +35,7 @@ class QualitativeValidationCallback(tf.keras.callbacks.Callback):
         self.img_width = img_width
         self.prompts = prompts
         self.num_imgs_to_gen = num_imgs_to_gen
+        self.num_diffusion_steps = num_diffusion_steps
         self.sd_model = keras_cv.models.StableDiffusion(
             img_height=self.img_heigth, img_width=self.img_width
         )
@@ -61,21 +63,10 @@ class QualitativeValidationCallback(tf.keras.callbacks.Callback):
                 for i, image in enumerate(images_dreamboothed)
             ]
             self.wandb_table.add_data(epoch, prompt, images_dreamboothed)
+            wandb.log({f"validation/Prompt: {prompt}": images_dreamboothed})
 
     def on_train_end(self, logs=None):
         wandb.log({"validation-table": self.wandb_table})
-        print("Performing inference on train end for logging generated images...")
-        print(f"Number of images to generate: {self.num_imgs_to_gen}")
-        for prompt in self.prompts:
-            images_dreamboothed = self.sd_model.text_to_image(prompt, batch_size=self.num_imgs_to_gen)
-            wandb.log(
-                {
-                    f"validation/Prompt: {prompt}": [
-                        wandb.Image(PIL.Image.fromarray(image), caption=f"{i}: {prompt}")
-                        for i, image in enumerate(images_dreamboothed)
-                    ]
-                }
-            )
 
 
 class DreamBoothCheckpointCallback(WandbModelCheckpoint):
