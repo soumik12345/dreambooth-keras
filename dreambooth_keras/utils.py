@@ -56,7 +56,9 @@ class QualitativeValidationCallback(tf.keras.callbacks.Callback):
 
         for prompt in self.prompts:
             images_dreamboothed = self.sd_model.text_to_image(
-                prompt, batch_size=self.num_imgs_to_gen
+                prompt,
+                batch_size=self.num_imgs_to_gen,
+                num_steps=self.num_diffusion_steps,
             )
             images_dreamboothed = [
                 wandb.Image(PIL.Image.fromarray(image), caption=f"{i}: {prompt}")
