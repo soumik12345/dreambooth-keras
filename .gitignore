@@ -3,3 +3,6 @@ __pycache__
 wandb/
 **.egg-info/
 .vscode/
+artifacts/
+dataset/
+**.sh
