@@ -11,6 +11,14 @@ import wandb
 from wandb.keras import WandbModelCheckpoint
 
 
+def fetch_wandb_artifact(artifact_address: str, artifact_type: str):
+    return (
+        wandb.Api().artifact(artifact_address, type=artifact_type).download()
+        if wandb.run is None
+        else wandb.use_artifact(artifact_address, type=artifact_type).download()
+    )
+
+
 class QualitativeValidationCallback(tf.keras.callbacks.Callback):
     def __init__(
         self,
