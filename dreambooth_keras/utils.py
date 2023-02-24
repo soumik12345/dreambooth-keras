@@ -1,3 +1,4 @@
+import os
 from glob import glob
 
 import keras_cv
@@ -17,6 +18,24 @@ def fetch_wandb_artifact(artifact_address: str, artifact_type: str):
         if wandb.run is None
         else wandb.use_artifact(artifact_address, type=artifact_type).download()
     )
+
+
+def load_model_from_wandb_artifact(artifact_address: str, image_resolution: int):
+    model_artifact_dir = fetch_wandb_artifact(
+        artifact_address=artifact_address, artifact_type="model"
+    )
+    sd_model = keras_cv.models.StableDiffusion(
+        img_height=image_resolution, img_width=image_resolution
+    )
+    unet_checkpoint_files = glob(os.path.join(model_artifact_dir, "*-unet.h5"))
+    text_encoder_checkpoint_files = glob(
+        os.path.join(model_artifact_dir, "*-text_encoder.h5")
+    )
+    if len(unet_checkpoint_files) > 0:
+        sd_model.diffusion_model.load_weights(unet_checkpoint_files[0])
+    if len(text_encoder_checkpoint_files) > 0:
+        sd_model.text_encoder.load_weights(text_encoder_checkpoint_files[0])
+    return sd_model
 
 
 class QualitativeValidationCallback(tf.keras.callbacks.Callback):
