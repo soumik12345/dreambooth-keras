@@ -6,3 +6,4 @@ wandb/
 artifacts/
 dataset/
 **.sh
+class-images/
