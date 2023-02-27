@@ -1,5 +1,7 @@
 # Implementation of DreamBooth using KerasCV and TensorFlow
 
+> This repository is a fork of [sayakpaul/dreambooth-keras](https://github.com/sayakpaul/dreambooth-keras) developed by [Sayak Paul](https://github.com/sayakpaul) and [Chansung Park](https://github.com/deep-diver). Please star ⭐️ the original repository.
+
 This repository provides an implementation of [DreamBooth](https://arxiv.org/abs/2208.12242) using KerasCV and TensorFlow. The implementation is heavily referred from Hugging Face's `diffusers` [example](https://github.com/huggingface/diffusers/tree/main/examples/dreambooth).
 
 DreamBooth is a way of quickly teaching (fine-tuning) Stable Diffusion about new visual concepts. For more details, refer to [this document](https://dreambooth.github.io/).
